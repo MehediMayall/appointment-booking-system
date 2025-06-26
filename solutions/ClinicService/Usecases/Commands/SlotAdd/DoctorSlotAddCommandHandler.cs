@@ -17,11 +17,12 @@ public sealed class DoctorSlotAddCommandHandler : IRequestHandler<DoctorSlotAddC
     }
 
 
-    // Step0: Create new DoctorSlot
-    // Step1: Check if Doctor Slot already exists
-    // Step2: if exists return success
-    // Step3: if not, Save new DoctorSlot
-    // Step4: return success
+    // Step1: Create new DoctorSlot
+    // Step2: Check if Doctor Slot already exists
+    // Step3: if exists return success
+    // Step4: Check if there are overlapping slots
+    // Step5: if not, Save new DoctorSlot
+    // Step6: return success
 
     public async Task<Response<DoctorSlotAddResponseDto>> Handle(DoctorSlotAddCommand request, CancellationToken cancellationToken)
     {
@@ -37,9 +38,15 @@ public sealed class DoctorSlotAddCommandHandler : IRequestHandler<DoctorSlotAddC
             t.IsActive == true
         );
 
+
         // if exists return success
         if (existingSlot is not null)
             return new DoctorSlotAddResponseDto("Success");
+
+        
+        // Check if there are overlapping slots
+        if (await _repo.HasOverlappingSlots(newSlot.ClinicId, newSlot.DoctorId, newSlot.StartTime, newSlot.EndTime))
+            return DoctorSlotAddErrors.HasOverlappingSlots();
 
 
         // Save new DoctorSlot

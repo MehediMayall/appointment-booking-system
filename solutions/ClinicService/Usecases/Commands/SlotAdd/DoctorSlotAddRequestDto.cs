@@ -12,7 +12,7 @@ public sealed record DoctorSlotAddRequestDto()
     public Slot New()
     {
         DateTime startTime = new DateTime(Date.Year, Date.Month, Date.Day, StartTime.Hours, StartTime.Minutes, 0);
-        DateTime endTime = new DateTime(Date.Year, Date.Month, Date.Day, StartTime.Hours, StartTime.Minutes,0);
+        DateTime endTime = new DateTime(Date.Year, Date.Month, Date.Day, EndTime.Hours, EndTime.Minutes,0);
 
         return new Slot()
         {
