@@ -1,6 +1,55 @@
-@ClinicService_HostAddress = http://localhost:5051
+@host = http://localhost:3200
 
-GET {{ClinicService_HostAddress}}/weatherforecast/
-Accept: application/json
 
-###
+
+### Clinic Add
+POST {{host}}/clinic/add
+Content-Type: application/json
+Idempotency-Key:212a980e-cbc4-465a-a54e-f56180b68ad5
+
+{
+    "name":"Popular Diagnostic Center",
+    "address": "Badda",
+    "phonenumber": "0256487545"
+}
+
+### Clinic Add
+POST {{host}}/doctor/add
+Content-Type: application/json
+Idempotency-Key:212a980e-cbb4-465a-a34e-f56180b68ad5
+
+{
+    "firstname":"Rafiqul",
+    "lastname": "Islam",
+    "specialization": "Chest Medicine",
+    "email": "0256487545",
+    "phonenumber": "0256487545"
+}
+
+
+### Clinic Doctor Add
+POST {{host}}/clinic/doctor/add
+Content-Type: application/json
+Idempotency-Key:212a980e-cbb4-465a-a54e-f56180b66ad5
+
+{
+    "clinicid":"d9366604-718d-4709-8779-c8d7210f888c",
+    "doctorid":"6aba17f8-fd8d-4550-856e-02a2107f3f1a",
+    "joiningdate": "2025-06-30",
+    "position": "Consultant"
+}
+
+
+
+### Doctor Slot Add
+POST {{host}}/doctor/slot/add
+Content-Type: application/json
+Idempotency-Key:212a980e-cbb4-465a-a54e-f56180b68ad5
+
+{
+    "clinicid":"d9366604-718d-4709-8779-c8d7210f888c",
+    "doctorid":"6aba17f8-fd8d-4550-856e-02a2107f3f1a",
+    "date": "2025-06-30",
+    "starttime": "18:00",
+    "endtime": "18:30"
+}

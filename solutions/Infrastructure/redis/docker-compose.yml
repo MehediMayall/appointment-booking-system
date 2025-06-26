@@ -5,10 +5,7 @@ services:
     ports:
       - "6379:6379"  # Expose Redis default port
     environment:
-      - REDIS_USERNAME=abs
-      - REDIS_PASSWORD=2K5V4AkH6oA£55g6
       - TZ=Asia/Dhaka
-    command: redis-server --requirepass $$REDIS_PASSWORD --user $$REDIS_USERNAME on >$$REDIS_PASSWORD allcommands allkeys
 
     restart: always
 

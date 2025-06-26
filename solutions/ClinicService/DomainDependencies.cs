@@ -20,14 +20,21 @@ public static class DomainDependencies
         });
 
 
-        
+
         //Dapper
         // services.AddScoped<ICMSDbConnection>(sp =>{
         //     return  new CMSDbConnection(configuration["ConnectionStrings:CMS"]);
         // });
 
-  
-     
+
+        // Repositories
+        services.AddFeatureRepositories();
+
+
+        // Unit of work
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
         return services;
     }
 

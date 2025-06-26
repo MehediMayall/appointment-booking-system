@@ -1,7 +1,7 @@
 services:
   rabbitmq:
     image: rabbitmq:4.1-rc-management-alpine
-    container_name: gpgames-rabbitmq
+    container_name: gpClinics-rabbitmq
     ports:
       - "7080:5672"    # RabbitMQ main port for communication
       - "7070:15672"   # RabbitMQ management web UI

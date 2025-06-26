@@ -287,11 +287,9 @@ namespace ClinicService.Migrations
                         .HasDatabaseName("IX_StartTime");
 
                     b.HasIndex("DoctorId", "ClinicId")
-                        .IsUnique()
                         .HasDatabaseName("IX_DoctorClinic");
 
                     b.HasIndex("DoctorId", "ClinicId", "IsActive")
-                        .IsUnique()
                         .HasDatabaseName("IX_DoctorClinicIsActive");
 
                     b.HasIndex("DoctorId", "ClinicId", "IsActive", "StartTime")

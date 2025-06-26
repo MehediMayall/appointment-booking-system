@@ -65,7 +65,7 @@ try
     }
 
     // Authorization
-    app.UseAuthorization();
+    // app.UseAuthorization();
 
     // Use Cors
     app.UseCors("AllowAll");    
@@ -85,6 +85,13 @@ try
 
     // Common Endpoints
     app.AddCommonEndpoints(builder.Configuration);
+
+    // Endpoints
+    app.AddClinicEndpoints();
+    app.AddDoctorEndpoints();
+
+    app.AddClinicDoctorEndpoints();
+    app.AddDoctorSlotEndpoints();
 
 
     // Health Check

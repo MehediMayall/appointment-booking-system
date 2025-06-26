@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ClinicService.Migrations
 {
     [DbContext(typeof(ClinicDbContext))]
-    [Migration("20250626114517_initial")]
+    [Migration("20250626132304_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -290,11 +290,9 @@ namespace ClinicService.Migrations
                         .HasDatabaseName("IX_StartTime");
 
                     b.HasIndex("DoctorId", "ClinicId")
-                        .IsUnique()
                         .HasDatabaseName("IX_DoctorClinic");
 
                     b.HasIndex("DoctorId", "ClinicId", "IsActive")
-                        .IsUnique()
                         .HasDatabaseName("IX_DoctorClinicIsActive");
 
                     b.HasIndex("DoctorId", "ClinicId", "IsActive", "StartTime")

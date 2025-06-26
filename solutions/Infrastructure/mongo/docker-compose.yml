@@ -9,7 +9,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - /gpgames-data/mongodb-data:/data/db
+      - /gpClinics-data/mongodb-data:/data/db
       - ./mongod.conf:/etc/mongod.conf
     ulimits:
       nproc: 65535

@@ -169,14 +169,12 @@ namespace ClinicService.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_DoctorClinic",
                 table: "slots",
-                columns: new[] { "doctor_id", "clinic_id" },
-                unique: true);
+                columns: new[] { "doctor_id", "clinic_id" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_DoctorClinicIsActive",
                 table: "slots",
-                columns: new[] { "doctor_id", "clinic_id", "is_active" },
-                unique: true);
+                columns: new[] { "doctor_id", "clinic_id", "is_active" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_DoctorClinicIsActiveStartTime",

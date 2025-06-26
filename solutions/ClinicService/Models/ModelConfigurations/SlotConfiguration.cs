@@ -16,8 +16,8 @@ public sealed class SlotConfiguration : IEntityTypeConfiguration<Slot>
         builder.HasIndex(d => d.StartTime).HasDatabaseName("IX_StartTime");
         builder.HasIndex(d => d.EndTime).HasDatabaseName("IX_EndTime");
 
-        builder.HasIndex(d => new { d.DoctorId, d.ClinicId }).HasDatabaseName("IX_DoctorClinic").IsUnique();
-        builder.HasIndex(d => new { d.DoctorId, d.ClinicId, d.IsActive }).HasDatabaseName("IX_DoctorClinicIsActive").IsUnique();
+        builder.HasIndex(d => new { d.DoctorId, d.ClinicId }).HasDatabaseName("IX_DoctorClinic");
+        builder.HasIndex(d => new { d.DoctorId, d.ClinicId, d.IsActive }).HasDatabaseName("IX_DoctorClinicIsActive");
         builder.HasIndex(d => new { d.DoctorId, d.ClinicId, d.IsActive, d.StartTime }).HasDatabaseName("IX_DoctorClinicIsActiveStartTime").IsUnique();
     }
 }
