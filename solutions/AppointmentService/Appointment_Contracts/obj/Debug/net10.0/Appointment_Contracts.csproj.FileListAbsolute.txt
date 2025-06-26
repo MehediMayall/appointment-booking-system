@@ -1,0 +1,12 @@
+/Users/mehedimayall/PROJECTS/GitHub/appointment-booking-system/solutions/AppointmentService/Appointment_Contracts/bin/Debug/net10.0/Appointment_Contracts.deps.json
+/Users/mehedimayall/PROJECTS/GitHub/appointment-booking-system/solutions/AppointmentService/Appointment_Contracts/bin/Debug/net10.0/Appointment_Contracts.dll
+/Users/mehedimayall/PROJECTS/GitHub/appointment-booking-system/solutions/AppointmentService/Appointment_Contracts/bin/Debug/net10.0/Appointment_Contracts.pdb
+/Users/mehedimayall/PROJECTS/GitHub/appointment-booking-system/solutions/AppointmentService/Appointment_Contracts/obj/Debug/net10.0/Appointment_Contracts.GeneratedMSBuildEditorConfig.editorconfig
+/Users/mehedimayall/PROJECTS/GitHub/appointment-booking-system/solutions/AppointmentService/Appointment_Contracts/obj/Debug/net10.0/Appointment_Contracts.AssemblyInfoInputs.cache
+/Users/mehedimayall/PROJECTS/GitHub/appointment-booking-system/solutions/AppointmentService/Appointment_Contracts/obj/Debug/net10.0/Appointment_Contracts.AssemblyInfo.cs
+/Users/mehedimayall/PROJECTS/GitHub/appointment-booking-system/solutions/AppointmentService/Appointment_Contracts/obj/Debug/net10.0/Appointment_Contracts.csproj.CoreCompileInputs.cache
+/Users/mehedimayall/PROJECTS/GitHub/appointment-booking-system/solutions/AppointmentService/Appointment_Contracts/obj/Debug/net10.0/Appointment_Contracts.sourcelink.json
+/Users/mehedimayall/PROJECTS/GitHub/appointment-booking-system/solutions/AppointmentService/Appointment_Contracts/obj/Debug/net10.0/Appointment_Contracts.dll
+/Users/mehedimayall/PROJECTS/GitHub/appointment-booking-system/solutions/AppointmentService/Appointment_Contracts/obj/Debug/net10.0/refint/Appointment_Contracts.dll
+/Users/mehedimayall/PROJECTS/GitHub/appointment-booking-system/solutions/AppointmentService/Appointment_Contracts/obj/Debug/net10.0/Appointment_Contracts.pdb
+/Users/mehedimayall/PROJECTS/GitHub/appointment-booking-system/solutions/AppointmentService/Appointment_Contracts/obj/Debug/net10.0/ref/Appointment_Contracts.dll

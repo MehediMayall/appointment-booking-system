@@ -7,16 +7,16 @@ services:
       - "5672:5672"    # RabbitMQ main port for communication
       - "5070:15672"   # RabbitMQ management web UI
     environment:
-      - RABBITMQ_DEFAULT_USER=guest  # Default username for RabbitMQ
-      - RABBITMQ_DEFAULT_PASS=guest  # Default password for RabbitMQ
+      - RABBITMQ_DEFAULT_USER=abs_app  # Default username for RabbitMQ
+      - RABBITMQ_DEFAULT_PASS=EjcD8437nWN32zG05q6G19  # Default password for RabbitMQ
       - TZ=Asia/Dhaka
     deploy:
       resources:
         limits:
-          memory: 20G       # Limit memory usage to 1GB
-          cpus: '12'      # Limit CPU usage to 1.5 core
+          memory: 8G       # Limit memory usage to 1GB
+          cpus: '1'      # Limit CPU usage to 1.5 core
 #    storage_opt:
 #      size: "1G"     # Limit disk usage to 1GB
     restart: always
     volumes:
-      - /var/www/abs/redis-rabbitmq/rabbitmq_data:/var/lib/rabbitmq  # Map RabbitMQ data to the host directory
+      - /Users/mehedimayall/PROJECTS/Database/abs/rabbitmq:/var/lib/rabbitmq  # Map RabbitMQ data to the host directory
