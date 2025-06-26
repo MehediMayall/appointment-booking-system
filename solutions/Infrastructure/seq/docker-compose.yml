@@ -1,0 +1,14 @@
+services:
+
+  abs.seq:
+    container_name: abs.seq
+    image: datalust/seq:latest
+    labels:
+      - abs.seq
+    restart: always
+    ports:
+      - 5341:5341
+      - 5080:80
+
+    environment:
+      - ACCEPT_EULA=Y

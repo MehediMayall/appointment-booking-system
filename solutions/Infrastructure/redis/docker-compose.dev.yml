@@ -1,0 +1,21 @@
+services:
+  redis:
+    image: redis:8.0-M03-alpine
+    container_name: abs-redis_service
+    ports:
+      - "6379:6379"  # Expose Redis default port
+    environment:
+    #   - REDIS_USERNAME=abs
+      # - REDIS_PASSWORD=2K5V4AkH6oA£9g6
+      - TZ=Asia/Dhaka
+    # command: redis-server --requirepass $$REDIS_PASSWORD  on >$$REDIS_PASSWORD allcommands allkeys
+
+    restart: always
+
+    deploy:
+      resources:
+        limits:
+          memory: 2G       # Limit memory usage to 1GB
+          cpus: '1'      # Limit CPU usage to 1.5 core
+    volumes:
+      - /var/www/abs/redis-rabbitmq/redis_data:/data  # Map Redis data to the host directory

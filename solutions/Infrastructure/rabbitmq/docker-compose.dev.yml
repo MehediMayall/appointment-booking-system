@@ -1,0 +1,20 @@
+services:
+  rabbitmq:
+    image: rabbitmq:4.1-rc-management-alpine
+    container_name: gpgames-rabbitmq
+    ports:
+      - "7080:5672"    # RabbitMQ main port for communication
+      - "7070:15672"   # RabbitMQ management web UI
+    environment:
+      - RABBITMQ_DEFAULT_USER=abs  # Default username for RabbitMQ
+      - RABBITMQ_DEFAULT_PASS=abs  # Default password for RabbitMQ
+      - TZ=Asia/Dhaka
+    deploy:
+      resources:
+        limits:
+          memory: 32G       # Limit memory usage to 1GB
+          cpus: '12'      # Limit CPU usage to 1.5 core
+#    storage_opt:
+#      size: "1G"     # Limit disk usage to 1GB
+    restart: always
+ 
