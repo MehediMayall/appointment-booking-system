@@ -10,6 +10,7 @@ public interface IMongoRepository<T> where T : EntityBase<Guid>
     Task<T> Get(Guid id);
     Task<T> Get(Expression<Func<T, bool>> filter);
     Task<Result<string>> Create(T item);
+    Task<Result<string>> CreateMany(IReadOnlyCollection<T> items);
     Task Update(T item);
     Task Delete(Guid id);
 }

@@ -11,7 +11,7 @@ public static class DomainDependencies
 
 
         // Repositories
-        services.AddFeatureRepositories();
+        // services.AddFeatureRepositories();
 
 
 

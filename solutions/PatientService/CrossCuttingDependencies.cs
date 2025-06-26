@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Caching.Hybrid;
 using Microsoft.OpenApi.Models;
+using Quartz;
 
 
 namespace PatientService;
@@ -105,14 +106,22 @@ public static class CrossCuttingDependencies
 
 
         // Background Job using Quartz
-        // services.AddQuartz(option =>
-        // {
-        //     option.UseDefaultThreadPool(tp =>
-        //     {
-        //         tp.MaxConcurrency = 1;
-        //     });
-        // });
-        // services.AddQuartzHostedService();
+        services.AddQuartz(option =>
+        {
+            option.UseDefaultThreadPool(tp =>
+            {
+                tp.MaxConcurrency = 1;
+            });
+
+            var jobKey = JobKey.Create(nameof(SaveNewPatientsIntoDatabase));
+            option.AddJob<SaveNewPatientsIntoDatabase>(jobKey)
+                .AddTrigger(trigger => 
+                    trigger.ForJob(jobKey)
+                    .WithSimpleSchedule(x => x
+                        .WithIntervalInSeconds(30)
+                        .RepeatForever()));
+        });
+        services.AddQuartzHostedService();
 
 
         services.AddHybridCache();

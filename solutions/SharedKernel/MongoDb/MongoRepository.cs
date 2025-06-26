@@ -44,6 +44,14 @@ public class MongoRepository<T> : IMongoRepository<T> where T : EntityBase<Guid>
         }
         catch (Exception ex) { return Error.New(ex.GetAllExceptions()); }
     }
+    public async Task<Result<string>> CreateMany(IReadOnlyCollection<T> items) {
+        try
+        {
+             await dbCollection.InsertManyAsync(items);
+            return "";
+        }
+        catch (Exception ex) { return Error.New(ex.GetAllExceptions()); }
+    }
 
     public async Task Update(T item) {
         FilterDefinition<T> filter = filterBuilder.Eq(e => e.Id, item.Id);

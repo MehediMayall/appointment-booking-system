@@ -58,7 +58,7 @@
     <PackageReference Include="SkiaSharp" Version="3.116.1" />
     <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="3.116.1" />
    <PackageReference Include="Dapper" Version="2.1.66" />
-    <PackageReference Include="SharedKernel" Version="1.0.0" />
+    <PackageReference Include="SharedKernel" Version="1.0.1" />
 
   </ItemGroup>
 

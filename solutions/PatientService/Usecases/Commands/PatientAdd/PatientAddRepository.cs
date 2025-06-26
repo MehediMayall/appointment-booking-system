@@ -1,16 +1,14 @@
 // namespace PatientService;
 
-// public interface IPatientAddRepository : IRepository<Patient>
+// public interface IPatientAddRepository 
 // {
-
+//     Task<Boolean> HasPatientWithMobile(string Mobile);
 // }
 
-// public sealed class PatientAddRepository : GenericRepository<Patient>, IPatientAddRepository
+// public sealed class PatientAddRepository(IMongoRepository<Patient> _repo) : IPatientAddRepository
 // {
 
-//     public PatientAddRepository(PatientDbContext _dbContext) : base(_dbContext) { }
-
-
-
+//     public async Task<Boolean> HasPatientWithMobile(string Mobile) =>
+//         await _repo.Find(x => x.ContactInfo.Phone == Mobile).AnyAsync();
 
 // }
