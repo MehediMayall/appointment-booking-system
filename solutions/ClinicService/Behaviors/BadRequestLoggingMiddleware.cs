@@ -1,4 +1,4 @@
-namespace GPlay.GamePlay.Services;
+namespace ClinicService;
 
 public sealed class BadRequestLoggingMiddleware
 {

@@ -90,8 +90,8 @@ public static class CrossCuttingDependencies
         // MediatR
         services.AddMediatR(cfg =>{
             cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
-            // cfg.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
-            // cfg.AddOpenBehavior(typeof(PerformancePipelineBehavior<,>));
+            cfg.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
+            cfg.AddOpenBehavior(typeof(PerformancePipelineBehavior<,>));
         });
 
         // MassTransit

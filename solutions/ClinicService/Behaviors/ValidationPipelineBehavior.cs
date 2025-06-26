@@ -1,6 +1,6 @@
 
 
-namespace GPlay.GamePlay.Services;
+namespace ClinicService;
 
 public sealed class ValidationPipelineBehavior<TRequest, TResponse>
     : IPipelineBehavior<TRequest, TResponse>

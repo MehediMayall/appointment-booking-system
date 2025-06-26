@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace GPlay.GamePlay.Services;
+namespace ClinicService;
 
 
 public sealed class PerformancePipelineBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
