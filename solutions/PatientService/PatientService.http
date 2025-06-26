@@ -8,8 +8,39 @@ Content-Type: application/json
 Idempotency-Key:212a980e-cbc4-465a-a54e-f56180b68ad5
 
 {
-    "name":"Popular Diagnostic Center",
-    "address": "Badda",
-    "phonenumber": "0256487545"
-}
+  "firstName": "Ibrahim",
+  "lastName": "Hasan",
+  "dateOfBirth": "1985-05-15",
+  "gender": "Male",
+  "bloodType": "A+",
+  "address": {
+    "city": "Gazipur",
+    "country": "BD"
+  },
+  "contactInfo": {
+    "phone": "555-123-4567",
+    "secondaryPhone": "555-987-6543",
+    "email": "ibrahim@gmail.com"
+  },
+  "emergencyContacts": [
+    {
+      "name": "Rita Hasan",
+      "relationship": "Spouse",
+      "phone": "555-234-5678",
+      "priority": 1
+    },
+    {
+      "name": "Arshad Hasan",
+      "relationship": "Father",
+      "phone": "555-345-6789",
+      "priority": 2
+    }
+  ],
+  "insuranceInfo": {
+    "provider": "Blue Cross",
+    "policyNumber": "BC123456789",
+    "groupNumber": "GRP987654",
+    "expirationDate": "2025-12-31T00:00:00Z"
+  }
 
+}

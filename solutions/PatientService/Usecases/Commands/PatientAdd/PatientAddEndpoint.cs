@@ -6,11 +6,11 @@ public static class PatientAddEndpoint{
         // Token
         app.MapPost("/patient/add", 
                 [AllowAnonymous] async(IMediator mediator, 
-                [FromBody] PatientAddRequestDto newClinic,  
+                [FromBody] PatientAddRequestDto newPatient,  
                 CancellationToken cancellationToken = default ) => 
             {
 
-            return Results.Ok(await mediator.Send(new PatientAddCommand(newClinic), cancellationToken));
+            return Results.Ok(await mediator.Send(new PatientAddCommand(newPatient), cancellationToken));
         })
         .Produces<PatientAddResponseDto>(StatusCodes.Status200OK)
         .WithTags("Patient")

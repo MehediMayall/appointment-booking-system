@@ -87,7 +87,7 @@ try
     app.AddCommonEndpoints(builder.Configuration);
 
     // Endpoints
-    app.AddClinicEndpoints();
+    app.AddPatientEndpoints();
 
     // Health Check
     app.MapHealthChecks("/health");

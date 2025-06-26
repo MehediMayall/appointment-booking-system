@@ -13,14 +13,14 @@ public sealed class PatientAddCommandHandler : IRequestHandler<PatientAddCommand
     }
 
 
-    // Step1: Check if Clinic already exists
+    // Step1: Check if Patient already exists
     // Step2: if exists return success
-    // Step3: if not, Save new Clinic
+    // Step3: if not, Save new Patient
     // Step4: return success
 
     public async Task<Response<PatientAddResponseDto>> Handle(PatientAddCommand request, CancellationToken cancellationToken)
     {
-         
+        await _repo.Create(request.requestDto.New());
 
         // Return Success
         return new PatientAddResponseDto("Success");

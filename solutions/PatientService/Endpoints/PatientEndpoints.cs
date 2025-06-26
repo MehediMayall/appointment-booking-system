@@ -1,10 +1,10 @@
 namespace PatientService;
 
-public static class ClinicEndpoints{
-    public static void AddClinicEndpoints(this IEndpointRouteBuilder app)
+public static class PatientEndpoints{
+    public static void AddPatientEndpoints(this IEndpointRouteBuilder app)
     {
 
-        // Add Clinic
+        // Add Patient
         app.PatientAdd();
 
         

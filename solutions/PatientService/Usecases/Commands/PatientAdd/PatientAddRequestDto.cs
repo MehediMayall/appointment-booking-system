@@ -1,6 +1,6 @@
 namespace PatientService;
 
-public sealed class Patient : EntityBase<Guid>
+public sealed record PatientAddRequestDto()
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
@@ -12,4 +12,21 @@ public sealed class Patient : EntityBase<Guid>
     public ContactInfo ContactInfo { get; set; }
     public List<EmergencyContact> EmergencyContacts { get; set; } = new List<EmergencyContact>();
 
-}
+
+    public Patient New()
+    {
+        return new Patient()
+        {
+            Id = Guid.NewGuid(),
+            FirstName = FirstName,
+            LastName = LastName,
+            DateOfBirth = DateOfBirth,
+            Gender = Gender,
+            BloodType = BloodType,
+            Address = Address,
+            ContactInfo = ContactInfo,
+            EmergencyContacts = EmergencyContacts
+        };
+    } 
+};
+ 
