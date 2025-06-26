@@ -1,4 +1,4 @@
-namespace  GPlay.Auth.Services;
+namespace  ClinicService;
 
 public sealed class RedisKeys {
 
