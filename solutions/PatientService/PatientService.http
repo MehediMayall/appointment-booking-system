@@ -1,0 +1,15 @@
+@host = http://localhost:3300
+
+
+
+### Patient Add
+POST {{host}}/patient/add
+Content-Type: application/json
+Idempotency-Key:212a980e-cbc4-465a-a54e-f56180b68ad5
+
+{
+    "name":"Popular Diagnostic Center",
+    "address": "Badda",
+    "phonenumber": "0256487545"
+}
+
