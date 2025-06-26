@@ -8,15 +8,12 @@ services:
       - 5432:5432
     environment:
       - POSTGRES_PASSWORD=EjcD8437nWN32zG05q6G19
-      - POSTGRES_USER=abs
+      - POSTGRES_USER=abs_app
       - POSTGRES_DB=postgres
       - TZ=Asia/Dhaka
     restart: unless-stopped
     volumes:
-      - /Users/mehedimayall/PROJECTS/Database/abs/postgres-data:/var/lib/postgresql/data
-      - ./postgresql.conf:/etc/postgresql/postgresql.conf
-    command: >
-      postgres -c config_file=/etc/postgresql/postgresql.conf
+      - /Users/mehedimayall/PROJECTS/Database/abs/postgresql-data:/var/lib/postgresql/data
     ulimits:
       nproc: 65535
       nofile:
@@ -26,10 +23,13 @@ services:
     deploy:
       resources:
         limits:
-          memory: 32G       # Limit memory usage to 1GB
+          memory: 8G       # Limit memory usage to 1GB
           cpus: '4'      # Limit CPU usage to 1.5 core
         reservations:
           cpus: '4'
           memory: 8G
 
  
+          
+          
+          

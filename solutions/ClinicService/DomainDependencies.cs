@@ -5,19 +5,19 @@ public static class DomainDependencies
     public static IServiceCollection AddDomainDependencies(this IServiceCollection services, IConfiguration configuration)
     {
 
-        // services.AddScoped<UpdateAuditableEntitiesInterceptor>();
+        services.AddScoped<UpdateAuditableEntitiesInterceptor>();
 
         // USED POSTGRES DATABASE
-        // services.AddDbContext<UserDbContext>((sp, option) => {
-        //     var auditableInterceptor = sp.GetService<UpdateAuditableEntitiesInterceptor>();
+        services.AddDbContext<ClinicDbContext>((sp, option) => {
+            var auditableInterceptor = sp.GetService<UpdateAuditableEntitiesInterceptor>();
 
-        //     option.AddInterceptors(auditableInterceptor);
-        //     option.UseNpgsql(configuration["ConnectionStrings:Default"], config=>{
-        //         config.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
-        //     })
-        //     .UseSnakeCaseNamingConvention();
+            option.AddInterceptors(auditableInterceptor);
+            option.UseNpgsql(configuration["ConnectionStrings:Default"], config=>{
+                config.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+            })
+            .UseSnakeCaseNamingConvention();
             
-        // });
+        });
 
 
         
