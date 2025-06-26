@@ -1,19 +1,13 @@
 using Microsoft.AspNetCore.Server.Kestrel.Core;
-using Microsoft.Extensions.Caching.Hybrid;
-using OpenTelemetry.Metrics;
-using OpenTelemetry.Resources;
-using OpenTelemetry.Trace;
+
 
 var builder = WebApplication.CreateBuilder(args);
-
 builder.Services.AddOpenApi();
 
 try
 {
     // App Settings
     builder.Services.ConfigureCacheAppSettings(builder.Configuration); 
-
- 
 
     // Cross Cutting Dependencies
     builder.Services.AddProjectDependencies(builder.Configuration);
@@ -33,76 +27,38 @@ try
 
     builder.Host.UseSerilog();
 
-    // Grpc
-    builder.Services.AddGrpc(options=>
-    {
-        options.EnableDetailedErrors = true;
-    });
 
-    builder.Services.AddGrpcReflection();
 
+
+    // Web Server Configuration
     builder.WebHost.ConfigureKestrel(options =>
     {
         options.ConfigureEndpointDefaults(listenOptions =>
         {
             listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
-            // listenOptions.UseHttps("https/cert.pfx", "$%09OneGames@65*abs#");
         });
-    });
-
-    // CORS
-    builder.Services.AddCors(options => 
-    options.AddPolicy("AllowAll",
-        policy  =>
-        {
-            policy.AllowAnyOrigin();
-            policy.AllowAnyHeader();
-            policy.AllowAnyMethod();
-        })
-    );
-
-
-
-    var serviceName = "ClinicService";
- 
-    
-    // Hybrid Cache
-    builder.Services.AddHybridCache(options =>
-    {
-        // Maximum size of cached items
-        options.MaximumPayloadBytes = 1024 * 1024 * 10; // 10MB
-        options.MaximumKeyLength = 512;
-
-        // Default timeouts
-        options.DefaultEntryOptions = new HybridCacheEntryOptions
-        {
-            Expiration = TimeSpan.FromMinutes(600),
-            LocalCacheExpiration = TimeSpan.FromMinutes(600)
-        };
-    });
-
-    builder.Services.AddStackExchangeRedisCache(options =>
-    {
-        options.Configuration = builder.Configuration["RedisSettings:Server"];
     });
 
 
     var app = builder.Build();
 
+    // Swagger
     if (app.Environment.IsDevelopment())
     {
 
         app.MapOpenApi();
-        // Swagger
         app.UseSwagger();
-        app.UseSwaggerUI(options => {
+        app.UseSwaggerUI(options =>
+        {
             options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
             options.RoutePrefix = string.Empty;
         });
-    } else {
-        // Swagger
+    }
+    else
+    {
         app.UseSwagger();
-        app.UseSwaggerUI(options => {
+        app.UseSwaggerUI(options =>
+        {
             options.SwaggerEndpoint("/api/auth/swagger/v1/swagger.json", "v1");
             options.RoutePrefix = string.Empty;
         });

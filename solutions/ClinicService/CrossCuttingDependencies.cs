@@ -1,13 +1,6 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Caching.Hybrid;
 using Microsoft.OpenApi.Models;
-using Polly;
-using Polly.Extensions.Http;
-using Quartz;
-using Serilog.Events;
-using Serilog.Sinks.Elasticsearch;
-
 
 
 namespace ClinicService;
@@ -17,7 +10,19 @@ public static class CrossCuttingDependencies
     public static IServiceCollection AddProjectDependencies(this IServiceCollection services, IConfiguration configuration)
     {
         
-        ConfigureSerilog();
+        SerilogConfiguration();
+
+        // CORS
+        services.AddCors(options => 
+        options.AddPolicy("AllowAll",
+            policy  =>
+            {
+                policy.AllowAnyOrigin();
+                policy.AllowAnyHeader();
+                policy.AllowAnyMethod();
+            })
+        );
+
       
         // JSON Format Config
         services.AddControllers()
@@ -42,6 +47,35 @@ public static class CrossCuttingDependencies
         services.Configure<BrotliCompressionProviderOptions>(option => {
             option.Level = System.IO.Compression.CompressionLevel.Fastest;
         });
+
+
+        // Hybrid Cache
+        services.AddHybridCache(options =>
+        {
+            // Maximum size of cached items
+            options.MaximumPayloadBytes = 1024 * 1024 * 10; // 10MB
+            options.MaximumKeyLength = 512;
+
+            // Default timeouts
+            options.DefaultEntryOptions = new HybridCacheEntryOptions
+            {
+                Expiration = TimeSpan.FromMinutes(600),
+                LocalCacheExpiration = TimeSpan.FromMinutes(600)
+            };
+        });
+
+        services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = configuration["RedisSettings:Server"];
+        });
+
+        // gRPC
+        services.AddGrpc(options=>
+        {
+            options.EnableDetailedErrors = true;
+        });
+
+        services.AddGrpcReflection();
 
 
         // Validators
@@ -140,7 +174,7 @@ public static class CrossCuttingDependencies
     }
 
 
-    public static void ConfigureSerilog()
+    public static void SerilogConfiguration()
     {
         var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
         var configuration = new ConfigurationBuilder()
