@@ -2,12 +2,12 @@ using Appointment_Contracts;
 
 namespace AppointmentService;
 
-public record AppointmentBookCommand(AppointmentBookRequestDto requestDto) : IRequest<Response<AppointmentBookResponseDto>>{}
-public sealed class AppointmentBookCommandHandler(
+public record AppointmentRequestCommand(AppointmentRequestRequestDto requestDto) : IRequest<Response<AppointmentRequestResponseDto>>{}
+public sealed class AppointmentRequestCommandHandler(
     IHybridCacheService _hybridCache,
-    IAppointmentBookRepository _repo,
+    IAppointmentRequestRepository _repo,
     MassTransit.IPublishEndpoint _publish
-    ) : IRequestHandler<AppointmentBookCommand, Response<AppointmentBookResponseDto>>
+    ) : IRequestHandler<AppointmentRequestCommand, Response<AppointmentRequestResponseDto>>
 {
 
 
@@ -15,9 +15,9 @@ public sealed class AppointmentBookCommandHandler(
     // Step2: if exists return success
     // Step3: if not,  create new Appointment
     // Step4: Save New Appointment into Cache
-    // Step5: Send AppointmentBooked Event to Notification Service
+    // Step5: Send AppointmentRequested Event to Notification Service
     // Step6: return success
-    public async Task<Response<AppointmentBookResponseDto>> Handle(AppointmentBookCommand request, CancellationToken cancellationToken)
+    public async Task<Response<AppointmentRequestResponseDto>> Handle(AppointmentRequestCommand request, CancellationToken cancellationToken)
     {
         // Check if Appointment already exists
         Appointment existingAppointment = await _repo.Get(
@@ -29,7 +29,7 @@ public sealed class AppointmentBookCommandHandler(
 
         // if exists return success
         if (existingAppointment is not null)
-            return new AppointmentBookResponseDto("Success");
+            return new AppointmentRequestResponseDto("Success");
 
         // Create New Appointment
         var newAppointment = request.requestDto.New();
@@ -41,9 +41,9 @@ public sealed class AppointmentBookCommandHandler(
         );
 
 
-        // Send AppointmentBooked Event to Notification Service
+        // Send AppointmentRequested Event to Notification Service
         await _publish.Publish(
-            new AppointmentBooked()
+            new AppointmentRequested()
             {
                 Id = newAppointment.Id,
                 DoctorId = newAppointment.DoctorId,
@@ -54,7 +54,7 @@ public sealed class AppointmentBookCommandHandler(
         );
 
         // Return Success
-        return new AppointmentBookResponseDto("Success");
+        return new AppointmentRequestResponseDto("Success");
     }
 
 

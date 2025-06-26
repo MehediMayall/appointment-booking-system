@@ -2,7 +2,7 @@ using Appointment_Contracts;
 
 namespace AppointmentService;
 
-public sealed record AppointmentBookRequestDto()
+public sealed record AppointmentRequestRequestDto()
 {
     public Guid DoctorId { get; set; }
     public Guid PatientId { get; set; }

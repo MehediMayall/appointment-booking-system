@@ -5,7 +5,7 @@ public static class AppointmentEndpoints{
     {
 
         // Add
-        app.AppointmentBook();
+        app.AppointmentConfirm();
         
     }
 
