@@ -9,6 +9,8 @@ public interface IGetDoctorAvailableSlotsRepository
 
     Task<bool> IsSpecificSlotAvailable(Guid SlotId);
 
+    Task UpdateSlot(Guid SlotId);
+
 }
 
 public sealed class GetDoctorAvailableSlotsRepository : IGetDoctorAvailableSlotsRepository
@@ -70,9 +72,9 @@ public sealed class GetDoctorAvailableSlotsRepository : IGetDoctorAvailableSlots
         );
 
 
-        public async Task<bool> IsSpecificSlotAvailable(Guid slotId)
-        {
-            const string query = @"
+    public async Task<bool> IsSpecificSlotAvailable(Guid slotId)
+    {
+        const string query = @"
                 SELECT EXISTS (
                     SELECT 1
                     FROM public.slots s
@@ -82,8 +84,16 @@ public sealed class GetDoctorAvailableSlotsRepository : IGetDoctorAvailableSlots
                         s.is_active = true
                 );";
 
-            return await _db.Connection.QueryFirstOrDefaultAsync<bool>(query, new { slotId });
-        }
+        return await _db.Connection.QueryFirstOrDefaultAsync<bool>(query, new { slotId });
+    }
+        
+    public async Task UpdateSlot(Guid SlotId) =>
+        await _db.Connection.ExecuteAsync(
+            @"Update public.slots 
+                SET is_booked = true
+                WHERE id = @SlotId;
+        ", new { SlotId }
+        );
          
 
 }
