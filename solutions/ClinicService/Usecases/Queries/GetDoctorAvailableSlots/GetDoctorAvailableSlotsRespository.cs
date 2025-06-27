@@ -7,6 +7,8 @@ public interface IGetDoctorAvailableSlotsRepository
     Task<IEnumerable<DoctorAvailableSlotsDto>> GetClinicDoctorAvailableSlots(string Specialization);
     Task<IEnumerable<AvailableSlotsDto>> GetAvailableSlots();
 
+    Task<bool> IsSpecificSlotAvailable(Guid SlotId);
+
 }
 
 public sealed class GetDoctorAvailableSlotsRepository : IGetDoctorAvailableSlotsRepository
@@ -46,8 +48,8 @@ public sealed class GetDoctorAvailableSlotsRepository : IGetDoctorAvailableSlots
             LIMIT 100;
         ", new { Specialization }
         );
-        
-        
+
+
 
 
     public async Task<IEnumerable<DoctorAvailableSlotsDto>> GetDoctorAvailableSlots(Guid ClinicId, string Specialization) =>
@@ -66,5 +68,22 @@ public sealed class GetDoctorAvailableSlotsRepository : IGetDoctorAvailableSlots
             LIMIT 100;
         ", new { ClinicId, Specialization }
         );
+
+
+        public async Task<bool> IsSpecificSlotAvailable(Guid slotId)
+        {
+            const string query = @"
+                SELECT EXISTS (
+                    SELECT 1
+                    FROM public.slots s
+                    WHERE 
+                        s.id = @slotId AND
+                        s.is_booked = false AND 
+                        s.is_active = true
+                );";
+
+            return await _db.Connection.QueryFirstOrDefaultAsync<bool>(query, new { slotId });
+        }
+         
 
 }

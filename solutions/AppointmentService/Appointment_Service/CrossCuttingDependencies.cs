@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Caching.Hybrid;
 using Microsoft.OpenApi.Models;
+using Polly;
+using Polly.Extensions.Http;
 
 
 namespace AppointmentService;
@@ -79,8 +81,8 @@ public static class CrossCuttingDependencies
 
 
         // Validators
-        // services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
-        // services.AddScoped(typeof(IPipelineBehavior<,>), typeof(PerformancePipelineBehavior<,>));
+        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
+        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(PerformancePipelineBehavior<,>));
 
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly(),includeInternalTypes: true);
@@ -114,6 +116,14 @@ public static class CrossCuttingDependencies
         // });
         // services.AddQuartzHostedService();
 
+
+        // Polly Policies
+        var retryPolicy = HttpPolicyExtensions.HandleTransientHttpError()
+            .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
+
+        services.AddHttpClient("ExternalApi", client => {
+                client.BaseAddress = new Uri("http://localhost:3200/available/slots");
+        }).AddPolicyHandler(retryPolicy);
 
         services.AddHybridCache();
 

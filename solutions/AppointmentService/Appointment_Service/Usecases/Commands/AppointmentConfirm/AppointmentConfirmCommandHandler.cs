@@ -7,7 +7,8 @@ public sealed class AppointmentConfirmCommandHandler(
     IHybridCacheService _hybridCache,
     IAppointmentConfirmRepository _repo,
     MassTransit.IPublishEndpoint _publish,
-    IUnitOfWork _unitOfWork
+    IUnitOfWork _unitOfWork,
+    HttpClient _httpClient
     ) : IRequestHandler<AppointmentConfirmCommand, Response<AppointmentConfirmResponseDto>>
 {
 
@@ -30,17 +31,18 @@ public sealed class AppointmentConfirmCommandHandler(
         // If Appointment does not exist
         if (pendingAppointmentResult.IsFailure)
             return new AppointmentConfirmResponseDto("Failed");
-            
+
         Appointment appointment = pendingAppointmentResult.Value;
         if (appointment is null)
             return new AppointmentConfirmResponseDto("Failed");
 
 
 
-
-        // // if exists return success
-        // if (existingAppointment is not null)
-        //     return new AppointmentConfirmResponseDto("Success");
+        // Check if requested slot is available
+        var isAvailableSlots = await IsSpecificSlotAvailable(appointment.SlotId);
+ 
+        if (isAvailableSlots is false)
+            return Error.New("Slot is not available");
 
         // Set appointment to confirmed and save
         appointment.Status = AppointmentStatus.CONFIRMED;
@@ -57,12 +59,40 @@ public sealed class AppointmentConfirmCommandHandler(
         await _publish.Publish(
             new AppointmentBooked()
             {
-                AppointmentId = appointment.Id
+                AppointmentId = appointment.Id,
+                SlotId = appointment.SlotId
             }
         );
 
         // Return Success
         return new AppointmentConfirmResponseDto("Success");
+    }
+    
+    private async Task<bool> IsSpecificSlotAvailable(Guid SlotId) 
+    {
+        try 
+        {
+
+
+            _httpClient.DefaultRequestHeaders.Add("DeviceType", "web");
+            _httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+    
+            var response = await _httpClient.GetAsync($"http://localhost:3200/slot/available/{SlotId}");
+
+            // Check if the request was successful
+            if (!response.IsSuccessStatusCode)
+                return true;
+
+            // Read and return the response content
+            var responseContent = await response.Content.ReadFromJsonAsync<HttpClientResponseDto>();
+            return responseContent.Data.IsAvailable;
+
+        }
+        catch (Exception ex) {
+            string errorMessage = ex.GetAllExceptions();
+            Log.Error($"Error in GetAllAvailableSlots: {errorMessage}");
+            return true;
+        }
     }
 
 

@@ -58,3 +58,13 @@ Idempotency-Key:212a980e-cbb8-4657-a54e-f56180b68ad5
 ### Search 
 GET {{host}}/search/available/slots/Medicine
 Content-Type: application/json
+
+
+### Get all available slots
+GET {{host}}/available/slots
+Content-Type: application/json
+
+
+### Is specific slot available
+GET {{host}}/slot/available/f20896de-51d7-4b77-aa1c-744e166ce86a
+Content-Type: application/json

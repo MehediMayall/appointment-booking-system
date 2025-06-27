@@ -5,11 +5,20 @@
 ### Appointment request
 POST {{host}}/request
 Content-Type: application/json
-Idempotency-Key:212a980e-cbc4-465a-a54e-f56180b68ad5
+Idempotency-Key:212a980e-cbc4-465a-a54e-f56180b68ad4
 
 {
     "doctorid":"6aba17f8-fd8d-4550-856e-02a2107f3f1a",
     "patientid": "f546dc20-813c-4dd3-b532-ab283a7a70d5",
     "slotid": "f20896de-51d7-4b77-aa1c-744e166ce86a"
+}
+
+### Appointment request
+POST {{host}}/confirm
+Content-Type: application/json
+Idempotency-Key:212a980e-cbc4-465a-a54e-f56180b68ad7
+
+{
+    "appointmentid":"f6cfcea0-e231-4e8b-8a16-ccee7895adec"
 }
 

@@ -1,4 +1,4 @@
 
 namespace AppointmentService;
 
-public sealed record AppointmentRequestResponseDto(string Message);
+public sealed record AppointmentRequestResponseDto(Guid AppointmentId);

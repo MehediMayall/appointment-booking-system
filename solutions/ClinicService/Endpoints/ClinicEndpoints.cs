@@ -14,6 +14,12 @@ public static class ClinicEndpoints{
         // Search
         app.SearchAvailableSlots();
 
+        // Get all available slots
+        app.GetAvailableSlots();
+
+        // Is specific slot available
+        app.IsSpecificSlotAvailable();
+
         
     }
 

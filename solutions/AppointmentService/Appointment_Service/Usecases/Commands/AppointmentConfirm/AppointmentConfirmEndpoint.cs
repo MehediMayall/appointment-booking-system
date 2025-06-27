@@ -4,7 +4,7 @@ public static class AppointmentConfirmEndpoint{
     public static void AppointmentConfirm(this IEndpointRouteBuilder app) {
 
         // Token
-        app.MapPost("/add", 
+        app.MapPost("/confirm", 
                 [AllowAnonymous] async(IMediator mediator, 
                 [FromBody] AppointmentConfirmRequestDto newAppointment,  
                 CancellationToken cancellationToken = default ) => 
