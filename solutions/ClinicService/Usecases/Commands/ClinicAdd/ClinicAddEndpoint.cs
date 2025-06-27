@@ -4,7 +4,7 @@ public static class ClinicAddEndpoint{
     public static void ClinicAdd(this IEndpointRouteBuilder app) {
 
         // Token
-        app.MapPost("/clinic/add", 
+        app.MapPost("/add", 
                 [AllowAnonymous] async(IMediator mediator, 
                 [FromBody] ClinicAddRequestDto newClinic,  
                 CancellationToken cancellationToken = default ) => 

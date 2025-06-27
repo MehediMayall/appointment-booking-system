@@ -5,12 +5,12 @@
 ### Clinic Add
 POST {{host}}/clinic/add
 Content-Type: application/json
-Idempotency-Key:212a980e-cbc4-465a-a54e-f56180b68ad5
+Idempotency-Key:212a980e-cbc4-465a-a54e-f56180b68ad7
 
 {
-    "name":"Popular Diagnostic Center",
-    "address": "Badda",
-    "phonenumber": "0256487545"
+    "name":"Ibn Sina Diagnostic Center",
+    "address": "Dhanmondi",
+    "phonenumber": "026874581"
 }
 
 ### Clinic Add
@@ -28,7 +28,7 @@ Idempotency-Key:212a980e-cbb4-465a-a34e-f56180b68ad5
 
 
 ### Clinic Doctor Add
-POST {{host}}/clinic/doctor/add
+POST {{host}}/clinic/doctor/mapping
 Content-Type: application/json
 Idempotency-Key:212a980e-cbb4-465a-a54e-f56180b66ad5
 
