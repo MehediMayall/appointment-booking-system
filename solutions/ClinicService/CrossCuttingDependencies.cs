@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Caching.Hybrid;
 using Microsoft.OpenApi.Models;
+using Quartz;
 
 
 namespace ClinicService;
@@ -79,8 +80,8 @@ public static class CrossCuttingDependencies
 
 
         // Validators
-        // services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
-        // services.AddScoped(typeof(IPipelineBehavior<,>), typeof(PerformancePipelineBehavior<,>));
+        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
+        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(PerformancePipelineBehavior<,>));
 
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly(),includeInternalTypes: true);
@@ -105,14 +106,25 @@ public static class CrossCuttingDependencies
 
 
         // Background Job using Quartz
-        // services.AddQuartz(option =>
-        // {
-        //     option.UseDefaultThreadPool(tp =>
-        //     {
-        //         tp.MaxConcurrency = 1;
-        //     });
-        // });
-        // services.AddQuartzHostedService();
+        services.AddQuartz(option =>
+        {
+            option.UseDefaultThreadPool(tp =>
+            {
+                tp.MaxConcurrency = 1;
+            });
+
+            // This job is to Load all available slots from database in every 1 minute
+            var jobKey = JobKey.Create(nameof(LoadAvailableSlotsIntoCacheJob));
+            option.AddJob<LoadAvailableSlotsIntoCacheJob>(jobKey)
+                .AddTrigger(trigger => 
+                    trigger.ForJob(jobKey)
+                    .WithSimpleSchedule(x => x
+                        .WithIntervalInSeconds(60)
+                        .RepeatForever()));
+
+
+        });
+        services.AddQuartzHostedService();
 
 
         services.AddHybridCache();

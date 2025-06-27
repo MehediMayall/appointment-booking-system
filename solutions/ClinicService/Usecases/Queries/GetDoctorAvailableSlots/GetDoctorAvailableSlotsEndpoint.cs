@@ -2,18 +2,22 @@ namespace ClinicService;
 
 
 public static class GetDoctorAvailableSlotsEndpoint{
-    /// <summary>
-    /// Get logged user profile
-    /// </summary>
-    /// <returns>Firstname, lastname, email, mobile and email</returns>
+
     public static void GetDoctorAvailableSlots(this IEndpointRouteBuilder app) {
      
-        app.MapGet("/user/profile", [Authorize] async(  IMediator mediator, CancellationToken cancellationToken = default ) => {
-            return Results.Ok(await mediator.Send(new GetDoctorAvailableSlotsQuery(), cancellationToken));
+        app.MapGet("/available/slots/{clinicId}/{specialization}", [AllowAnonymous] async(
+              [FromRoute] Guid clinicId,
+              [FromRoute] string specialization,
+              IMediator mediator, CancellationToken cancellationToken = default ) =>
+            {
+
+            var requestDto = new GetDoctorAvailableSlotsRequestDto() { ClinicId = clinicId, Specialization = specialization };
+            
+            return Results.Ok(await mediator.Send(new GetDoctorAvailableSlotsQuery(requestDto), cancellationToken));
         })
         .Produces<Response<GetDoctorAvailableSlotsResponseDto>>(StatusCodes.Status200OK)
-        .WithTags("Profile")
-        .WithSummary("Get an user account information")
+        .WithTags("Available Slots")
+        .WithSummary("Get specific clinic and specialization available slots")
         .WithOpenApi();
 
     }

@@ -22,9 +22,9 @@ public static class DomainDependencies
 
 
         //Dapper
-        // services.AddScoped<ICMSDbConnection>(sp =>{
-        //     return  new CMSDbConnection(configuration["ConnectionStrings:CMS"]);
-        // });
+        services.AddScoped<IClinicDbConnection>(sp =>{
+            return new ClinicDbConnection(configuration["ConnectionStrings:Default"]);
+        });
 
 
         // Repositories

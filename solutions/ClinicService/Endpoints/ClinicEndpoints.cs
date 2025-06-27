@@ -7,6 +7,13 @@ public static class ClinicEndpoints{
         // Add Clinic
         app.ClinicAdd();
 
+
+        // Get specific clinic and specialization available slots  
+        app.GetDoctorAvailableSlots();
+
+        // Search
+        app.SearchAvailableSlots();
+
         
     }
 

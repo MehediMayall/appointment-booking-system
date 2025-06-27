@@ -80,8 +80,8 @@ public static class CrossCuttingDependencies
 
 
         // Validators
-        // services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
-        // services.AddScoped(typeof(IPipelineBehavior<,>), typeof(PerformancePipelineBehavior<,>));
+        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
+        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(PerformancePipelineBehavior<,>));
 
 
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly(),includeInternalTypes: true);
@@ -113,6 +113,7 @@ public static class CrossCuttingDependencies
                 tp.MaxConcurrency = 1;
             });
 
+            // This job is to save new patients into database in every 30 seconds
             var jobKey = JobKey.Create(nameof(SaveNewPatientsIntoDatabase));
             option.AddJob<SaveNewPatientsIntoDatabase>(jobKey)
                 .AddTrigger(trigger => 

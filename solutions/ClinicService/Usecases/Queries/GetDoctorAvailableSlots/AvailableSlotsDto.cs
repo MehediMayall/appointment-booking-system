@@ -1,6 +1,6 @@
 namespace ClinicService;
 
-public sealed class ClinicDoctorAvailableSlotsDto : DoctorAvailableSlotsDto
+public sealed class AvailableSlotsDto : DoctorAvailableSlotsDto
 {
     public string ClinicName { get; set; }
     public string Address { get; set; }

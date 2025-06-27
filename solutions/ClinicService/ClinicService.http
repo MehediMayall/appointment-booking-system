@@ -53,3 +53,8 @@ Idempotency-Key:212a980e-cbb8-4657-a54e-f56180b68ad5
     "starttime": "18:45",
     "endtime": "19:00"
 }
+
+
+### Search 
+GET {{host}}/search/available/slots/Medicine
+Content-Type: application/json

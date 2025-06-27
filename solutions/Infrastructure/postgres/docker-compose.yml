@@ -11,7 +11,7 @@ services:
       - POSTGRES_USER=abs_app
       - POSTGRES_DB=postgres
       - TZ=Asia/Dhaka
-    restart: unless-stopped
+    restart: always
     volumes:
       - /Users/mehedimayall/PROJECTS/Database/abs/postgresql-data:/var/lib/postgresql/data
     ulimits:
